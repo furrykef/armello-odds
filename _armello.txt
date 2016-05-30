@@ -1,0 +1,28 @@
+These are the developer's notes to himself. Never you mind.
+
+
+Interesting odds
+----------------
+* General combat odds
+* General peril odds
+* Combat odds against king
+* Palace peril odds
+
+
+Brute force analysis
+--------------------
+Even without the explode mechanic, brute force is expensive. Rolling ten dice means computing the results of 6**10 = 60 million combinations!
+
+
+Smart force
+-----------
+Here we recognize that certain combinations can occur multiple times. Suppose we flip a coin three times; we recognize that HTT, THT, and TTH are all equivalent. If we can recognize in O(1) time that there are three ways for HTT to occur (which we can), we can cut out most of the search tree.
+
+
+Explode
+-------
+With the explode mechanic, dice can be added without bound.
+
+Assuming only Wyld explodes: 1/6 of the time we add an extra die. 1/6 of the time that extra die will result in another extra die, and so on. The chance there will be two or more extra dice is 1/36; the chance there will be three or more is 1/216; the chance there will be four or more is 1/1296.
+
+We can assume at some point that a certain number of extra dice is so improbable as to not significantly affect the average. We can cap the number of extra dice added (perhaps this cap would be proporitional to the number of dice originally rolled).

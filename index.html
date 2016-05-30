@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Armello odds calculator</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+			integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+			crossorigin="anonymous"></script>
+    <script src="armello.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <h1>Armello odds calculator</h1>
+    <p>
+      This is a work in progress. Results may be incorrect if the thing
+      works at all. In short, <strong>do not use it yet</strong>.
+    </p>
+    <p>
+      Please do not use this during a multiplayer game. Its purpose is
+      to educate, not to allow cheating.
+    </p>
+    <p>
+      (Note: This form requires JavaScript to function.)
+    </p>
+
+    <h2>Combat odds</h2>
+    <form onsubmit="SubmitCombatOdds()">
+      <label for="CombatYourFight">Your fight</label>
+      <input type="text" id="CombatYourFight" value="5">
+      <br>
+      <label for="CombatYourHealth">Your health</label>
+      <input type="text" id="CombatYourHealth" value="5">
+      <br>
+      <label for="CombatTheirFight">Their fight</label>
+      <input type="text" id="CombatTheirFight" value="5">
+      <br>
+      <label for="CombatYourHealth">Their health</label>
+      <input type="text" id="CombatTheirHealth" value="5">
+      <br>
+      <br>
+      <input type="submit" value="Calculate">
+    </form>
+
+    <h2>Peril odds</h2>
+    <p>To be done</p>
+  </body>
+</html>
