@@ -87,15 +87,15 @@ function roll_dice(num_dice, wyldhide)
     var misses = 0;
     while(num_dice > 0) {
         var die = Math.floor(Math.random()*6);
-        if(die == SWORD || die == SUNMOON_HIT || die == WYLDROT_HIT) {
+        if(die === SWORD || die === SUNMOON_HIT || die === WYLDROT_HIT) {
             ++swords;
         }
-        else if(die == SHIELD) {
+        else if(die === SHIELD) {
             ++shields;
         }
         else {
-            if(wyldhide && die == WYLDROT_MISS) {
-                shields += 1;
+            if(wyldhide && die === WYLDROT_MISS) {
+                ++shields;
             } else {
                 ++misses;
             }
