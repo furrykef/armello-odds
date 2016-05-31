@@ -3,10 +3,16 @@ th {
     background: #008;
     color: #fff;
     border: 1px solid #888;
+    font-size: 120%;
 }
 
 td {
     margin: 0;
     padding: 0.5em 1em 1em;
     border: 1px solid #888;
+}
+
+label {
+    display: block;
+    font-weight: bold;
 }
