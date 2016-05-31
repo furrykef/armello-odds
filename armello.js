@@ -27,7 +27,7 @@ Armello.SubmitCombatOdds = function() {
 
     // prevent submit action from reloading form
     return false;
-}
+};
 
 function CalcCombatOdds(
     p1_num_dice, p1_start_hp, p1_swords, p1_shields,
@@ -38,10 +38,11 @@ function CalcCombatOdds(
     var p2_end_hp_total = 0;
     var p1_deaths = 0;
     var p2_deaths = 0;
-    for(var i = 0; i < NUM_TRIALS; ++i) {
-        var result = trial(p1_num_dice, p1_start_hp, p1_swords, p1_shields,
-                           p2_num_dice, p2_start_hp, p2_swords, p2_shields,
-                           p2_is_king);
+    var i, result;
+    for(i = 0; i < NUM_TRIALS; ++i) {
+        result = trial(p1_num_dice, p1_start_hp, p1_swords, p1_shields,
+                       p2_num_dice, p2_start_hp, p2_swords, p2_shields,
+                       p2_is_king);
         p1_end_hp_total += result.p1_end_hp;
         p2_end_hp_total += result.p2_end_hp;
         if(result.p1_end_hp <= 0) {
@@ -85,8 +86,9 @@ function roll_dice(num_dice, wyldhide)
     var swords = 0;
     var shields = 0;
     var misses = 0;
+    var die;
     while(num_dice > 0) {
-        var die = Math.floor(Math.random()*6);
+        die = Math.floor(Math.random()*6);
         if(die === SWORD || die === SUNMOON_HIT || die === WYLDROT_HIT) {
             ++swords;
         }
@@ -109,4 +111,4 @@ function roll_dice(num_dice, wyldhide)
              misses: misses};
 }
 
-})();
+}());
