@@ -23,7 +23,7 @@
     </p>
 
     <h2>Combat odds</h2>
-    <form onsubmit="SubmitCombatOdds()">
+    <form onsubmit="return SubmitCombatOdds()">
       <table>
         <tr>
           <th>You</th>
@@ -31,30 +31,33 @@
         </tr>
         <tr>
           <td>
-            <label for="CombatYourDice">Number of dice</label>
+            <label for="CombatYourDice">Number of dice</label><br>
             <input type="text" id="CombatYourDice" value="5"><br>
             <br>
-            <label for="CombatYourHealth">Health</label>
+            <label for="CombatYourHealth">Health</label><br>
             <input type="text" id="CombatYourHealth" value="5"><br>
             <br>
-            <label for="CombatYourSwords">Swords</label>
+            <label for="CombatYourSwords">Swords</label><br>
             <input type="text" id="CombatYourSwords" value="0"><br>
             <br>
-            <label for="CombatYourShields">Shields</label>
+            <label for="CombatYourShields">Shields</label><br>
             <input type="text" id="CombatYourShields" value="0">
           </td>
           <td>
-            <label for="CombatTheirDice">Number of dice</label>
+            <label for="CombatTheirDice">Number of dice</label><br>
             <input type="text" id="CombatTheirDice" value="5"><br>
             <br>
-            <label for="CombatTheirHealth">Health</label>
+            <label for="CombatTheirHealth">Health</label><br>
             <input type="text" id="CombatTheirHealth" value="5"><br>
             <br>
-            <label for="CombatTheirSwords">Swords</label>
+            <label for="CombatTheirSwords">Swords</label><br>
             <input type="text" id="CombatTheirSwords" value="0"><br>
             <br>
-            <label for="CombatTheirShields">Shields</label>
+            <label for="CombatTheirShields">Shields</label><br>
             <input type="text" id="CombatTheirShields" value="0">
+            <br>
+            <br>
+            <input type="checkbox" id="CombatKing"> <label for="CombatKing">King (Wyldhide and Pride's Edge)</label>
           </td>
         </tr>
       </table>

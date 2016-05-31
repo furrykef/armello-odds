@@ -3,6 +3,8 @@ These are the developer's notes to himself. Never you mind.
 
 When this thing gets far enough along, post it on /r/armello, the Steam forum, and the League of Geeks forum
 
+Make sure it's usable on my phone
+
 
 Interesting odds
 ----------------
