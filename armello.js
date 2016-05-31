@@ -1,15 +1,18 @@
-NUM_TRIALS = 100000;
+Armello = {};
+(function() {
+"use strict";
 
-SWORD = 0;
-SHIELD = 1;
-SUNMOON_HIT = 2;
-SUNMOON_MISS = 3;
-WYLDROT_HIT = 4;
-WYLDROT_MISS = 5;
+var NUM_TRIALS = 100000;
+
+var SWORD = 0;
+var SHIELD = 1;
+var SUNMOON_HIT = 2;
+var SUNMOON_MISS = 3;
+var WYLDROT_HIT = 4;
+var WYLDROT_MISS = 5;
 
 
-function SubmitCombatOdds()
-{
+Armello.SubmitCombatOdds = function() {
     CalcCombatOdds(
         parseInt($("#CombatYourDice").val()),
         parseInt($("#CombatYourHealth").val()),
@@ -105,3 +108,5 @@ function roll_dice(num_dice, wyldhide)
              shields: shields,
              misses: misses};
 }
+
+}());
