@@ -2,10 +2,10 @@ NUM_TRIALS = 100000;
 
 SWORD = 0;
 SHIELD = 1;
-SUN = 2;
-MOON = 3;
-WYLD = 4;
-ROT = 5;
+SUNMOON_HIT = 2;
+SUNMOON_MISS = 3;
+WYLDROT_HIT = 4;
+WYLDROT_MISS = 5;
 
 
 function SubmitCombatOdds()
@@ -27,8 +27,8 @@ function SubmitCombatOdds()
 }
 
 function CalcCombatOdds(
-    p1_fight, p1_start_hp, p1_swords, p1_shields,
-    p2_fight, p2_start_hp, p2_swords, p2_shields,
+    p1_num_dice, p1_start_hp, p1_swords, p1_shields,
+    p2_num_dice, p2_start_hp, p2_swords, p2_shields,
     p2_is_king
 ) {
     var p1_end_hp_total = 0;
@@ -36,8 +36,8 @@ function CalcCombatOdds(
     var p1_deaths = 0;
     var p2_deaths = 0;
     for(var i = 0; i < NUM_TRIALS; ++i) {
-        var result = trial(p1_fight, p1_start_hp, p1_swords, p1_shields,
-                           p2_fight, p2_start_hp, p2_swords, p2_shields,
+        var result = trial(p1_num_dice, p1_start_hp, p1_swords, p1_shields,
+                           p2_num_dice, p2_start_hp, p2_swords, p2_shields,
                            p2_is_king);
         p1_end_hp_total += result.p1_end_hp;
         p2_end_hp_total += result.p2_end_hp;
@@ -57,18 +57,18 @@ function CalcCombatOdds(
 }
 
 function trial(
-    p1_fight, p1_hp, p1_swords, p1_shields,
-    p2_fight, p2_hp, p2_swords, p2_shields,
+    p1_num_dice, p1_hp, p1_swords, p1_shields,
+    p2_num_dice, p2_hp, p2_swords, p2_shields,
     p2_is_king
 ) {
-    var p1_result = roll_dice(p1_fight, false);
+    var p1_result = roll_dice(p1_num_dice, false);
     p1_swords += p1_result.swords;
     p1_shields += p1_result.shields;
     if(p2_is_king) {
         // Effect of Pride's Edge
-        p2_fight += p1_result.misses;
+        p2_num_dice += p1_result.misses;
     }
-    var p2_result = roll_dice(p2_fight, p2_is_king);
+    var p2_result = roll_dice(p2_num_dice, p2_is_king);
     p2_swords += p2_result.swords;
     p2_shields += p2_result.shields;
     p1_hp -= Math.max(p2_swords - p1_shields, 0);
@@ -84,21 +84,20 @@ function roll_dice(num_dice, wyldhide)
     var misses = 0;
     while(num_dice > 0) {
         var die = Math.floor(Math.random()*6);
-        if(die == SWORD || die == SUN || die == WYLD) {
+        if(die == SWORD || die == SUNMOON_HIT || die == WYLDROT_HIT) {
             ++swords;
         }
         else if(die == SHIELD) {
             ++shields;
         }
         else {
-            // We check for Rot instead of Wyld because this routine assumes the character is not corrupt
-            if(wyldhide && die == ROT) {
+            if(wyldhide && die == WYLDROT_MISS) {
                 shields += 1;
             } else {
                 ++misses;
             }
         }
-        if(die != WYLD) {
+        if(die != WYLDROT_HIT) {
             --num_dice;
         }
     }
