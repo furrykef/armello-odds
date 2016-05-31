@@ -1,6 +1,9 @@
 These are the developer's notes to himself. Never you mind.
 
 
+When this thing gets far enough along, post it on /r/armello, the Steam forum, and the League of Geeks forum
+
+
 Interesting odds
 ----------------
 * General combat odds

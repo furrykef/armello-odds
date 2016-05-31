@@ -11,11 +11,11 @@ WORM = 5;
 function SubmitCombatOdds()
 {
     CalcCombatOdds(
-        parseInt($("#CombatYourFight").val()),
+        parseInt($("#CombatYourDice").val()),
         parseInt($("#CombatYourHealth").val()),
         parseInt($("#CombatYourSwords").val()),
         parseInt($("#CombatYourShields").val()),
-        parseInt($("#CombatTheirFight").val()),
+        parseInt($("#CombatTheirDice").val()),
         parseInt($("#CombatTheirHealth").val()),
         parseInt($("#CombatTheirSwords").val()),
         parseInt($("#CombatTheirShields").val())
