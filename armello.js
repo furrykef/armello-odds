@@ -109,4 +109,4 @@ function roll_dice(num_dice, wyldhide)
              misses: misses};
 }
 
-}());
+})();
