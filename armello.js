@@ -100,7 +100,7 @@ function roll_dice(num_dice, wyldhide)
                 ++misses;
             }
         }
-        if(die != WYLDROT_HIT) {
+        if(die !== WYLDROT_HIT) {
             --num_dice;
         }
     }
