@@ -20,7 +20,9 @@ Armello.SubmitCombatOdds = function() {
         piercing_swords: parseInt($("#CombatYourPiercingSwords").val()),
         shields: parseInt($("#CombatYourShields").val()),
         sunmoon_explode: $('#CombatYourSunMoonExplode').prop('checked'),
-        is_king: false
+        is_king: false,
+        deaths: 0,                          // will be updated
+        end_hp_total: 0                     // will be updated
     };
 
     var p2 = {
@@ -30,10 +32,19 @@ Armello.SubmitCombatOdds = function() {
         piercing_swords: parseInt($("#CombatTheirPiercingSwords").val()),
         shields: parseInt($("#CombatTheirShields").val()),
         sunmoon_explode: $('#CombatTheirSunMoonExplode').prop('checked'),
-        is_king: $('#CombatKing').prop('checked')
+        is_king: $('#CombatKing').prop('checked'),
+        deaths: 0,                          // will be updated
+        end_hp_total: 0                     // will be updated
     };
 
     CalcCombatOdds(p1, p2);
+
+    alert(
+        "Your average ending HP: " + (p1.end_hp_total/NUM_TRIALS).toFixed(1) +
+        "\nTheir average ending HP: " + (p2.end_hp_total/NUM_TRIALS).toFixed(1) +
+        "\nChance you die: " + Math.round(p1.deaths/NUM_TRIALS * 100) + "%" +
+        "\nChance they die: " + Math.round(p2.deaths/NUM_TRIALS * 100) + "%"
+    );
 
     // prevent submit action from reloading form
     return false;
@@ -41,28 +52,10 @@ Armello.SubmitCombatOdds = function() {
 
 function CalcCombatOdds(p1, p2)
 {
-    var p1_end_hp_total = 0;
-    var p2_end_hp_total = 0;
-    var p1_deaths = 0;
-    var p2_deaths = 0;
-    var i, result;
+    var i;
     for(i = 0; i < NUM_TRIALS; ++i) {
-        result = trial(p1, p2);
-        p1_end_hp_total += result.p1_end_hp;
-        p2_end_hp_total += result.p2_end_hp;
-        if(result.p1_end_hp <= 0) {
-            ++p1_deaths;
-        }
-        if(result.p2_end_hp <= 0) {
-            ++p2_deaths;
-        }
+        trial(p1, p2);
     }
-    alert(
-        "Your average ending HP: " + (p1_end_hp_total/NUM_TRIALS).toFixed(1) +
-        "\nTheir average ending HP: " + (p2_end_hp_total/NUM_TRIALS).toFixed(1) +
-        "\nChance you die: " + Math.round(p1_deaths/NUM_TRIALS * 100) + "%" +
-        "\nChance they die: " + Math.round(p2_deaths/NUM_TRIALS * 100) + "%"
-    );
 }
 
 function trial(p1, p2)
@@ -79,8 +72,14 @@ function trial(p1, p2)
     p2_shields = Math.max(p2_shields - p1.piercing_swords, 0);
     var p1_hp = p1.start_hp - Math.max(p2_swords - p1_shields, 0) + p2.piercing_swords;
     var p2_hp = p2.start_hp - Math.max(p1_swords - p2_shields, 0) + p1.piercing_swords;
-    return {p1_end_hp: p1_hp,
-             p2_end_hp: p2_hp};
+    if(p1_hp <= 0) {
+        ++p1.deaths;
+    }
+    if(p2_hp <= 0) {
+        ++p2.deaths;
+    }
+    p1.end_hp_total += p1_hp;
+    p2.end_hp_total += p2_hp;
 }
 
 function roll_dice(player, num_extra_dice)
