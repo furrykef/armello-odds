@@ -60,26 +60,36 @@ function CalcCombatOdds(p1, p2)
 
 function trial(p1, p2)
 {
-    var p1_result = roll_dice(p1, 0);
-    var p1_swords = p1.swords + p1_result.swords;
-    var p1_shields = p1.shields + p1_result.shields;
-    p1_shields = Math.max(p1_shields - p2.piercing_swords, 0);
+    var p1_result = handle_player_roll(p1, p2, 0);
+    var p2_result = handle_player_roll(p2, p1, p1_result.misses);
+    update_player_health(p1, p1_result, p2, p2_result);
+    update_player_health(p2, p2_result, p1, p1_result);
+}
+
+// opponents_misses is only relevant for Pride's Edge
+// It will be 0 when player is player 1
+function handle_player_roll(player, opponent, opponents_misses)
+{
     // Effect of Pride's Edge
-    var extra_dice = p2.is_king ? p1_result.misses : 0;
-    var p2_result = roll_dice(p2, extra_dice);
-    var p2_swords = p2.swords + p2_result.swords;
-    var p2_shields = p2.shields + p2_result.shields;
-    p2_shields = Math.max(p2_shields - p1.piercing_swords, 0);
-    var p1_hp = p1.start_hp - Math.max(p2_swords - p1_shields, 0) + p2.piercing_swords;
-    var p2_hp = p2.start_hp - Math.max(p1_swords - p2_shields, 0) + p1.piercing_swords;
-    if(p1_hp <= 0) {
-        ++p1.deaths;
+    var extra_dice = player.is_king ? opponents_misses : 0;
+
+    var result = roll_dice(player, extra_dice);
+    var swords = player.swords + result.swords;
+    var shields = player.shields + result.shields;
+    shields = Math.max(shields - opponent.piercing_swords, 0);
+    return {swords: swords,
+             shields, shields,
+             misses: result.misses};
+}
+
+function update_player_health(player, player_result, opponent, opponent_result)
+{
+    var damage = Math.max(opponent_result.swords - player_result.shields, 0) + opponent.piercing_swords;
+    var hp = player.start_hp - damage;
+    if(hp <= 0) {
+        ++player.deaths;
     }
-    if(p2_hp <= 0) {
-        ++p2.deaths;
-    }
-    p1.end_hp_total += p1_hp;
-    p2.end_hp_total += p2_hp;
+    player.end_hp_total += hp;
 }
 
 function roll_dice(player, num_extra_dice)
